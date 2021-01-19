@@ -1,14 +1,22 @@
 {
-  "name": "demos",
+  "name": "city-explorer-api",
   "version": "1.0.0",
-  "description": "city explorer back end",
+  "description": "lab 6",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "nicholas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jquaglia/city-explorer-api.git"
+  },
+  "author": "Jason Quaglia",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jquaglia/city-explorer-api/issues"
+  },
+  "homepage": "https://github.com/jquaglia/city-explorer-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
