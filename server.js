@@ -11,7 +11,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-
+const PORT = process.env.PORT || 3000;
 
 
 
@@ -26,4 +26,4 @@ app.use(cors());
 
 
 // ====== Start the server ======
-app.listen(3000, () => {console.log('server is listening')});
+app.listen(PORT, () => {console.log('server is listening')});
