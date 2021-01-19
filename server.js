@@ -5,6 +5,7 @@
 const express = require('express');
 
 const cors = require('cors');
+const database = require('mime-db');
 
 require('dotenv').config();
 
@@ -45,10 +46,27 @@ app.get('/location', (request, response) => {
     theDataObjFromJson.lat,
     theDataObjFromJson.lon
   );
-    console.log('newLocation', newLocation);
+
+  console.log('newLocation', newLocation);
   response.send(newLocation);
 });
 
+
+
+app.get('/weather', (request, response) => {
+const weatherData = require('./data/weather.json');
+const arr = [];
+
+weatherData.data.forEach(object => {
+  const newWeather = new Weather(
+  object.weather.description,
+  object.datetime
+  );
+  arr.push(newWeather)
+});
+
+response.send(arr)
+});
 
 
 
@@ -58,6 +76,11 @@ function Location(search_query, formatted_query, latitude, longitude){
   this.formatted_query = formatted_query;
   this.longitude = longitude;
   this.latitude = latitude;
+}
+
+function Weather(forecast, time){
+  this.forecast = forecast;
+  this.time = time;
 }
 
 
