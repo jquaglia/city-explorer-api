@@ -48,7 +48,7 @@ app.get('/location', (request, response) => {
         theDataObjFromJson.lat,
         theDataObjFromJson.lon
       );
-      
+
       response.send(newLocation);
     })
     .catch(error => {
@@ -61,16 +61,29 @@ app.get('/location', (request, response) => {
 
 
 app.get('/weather', (request, response) => {
-  const weatherData = require('./data/weather.json');
-  const weatherArray = weatherData.data.map(object => {
-    const newWeather = new Weather(
-      object.weather.description,
-      object.valid_date
-    );
-    return newWeather;
-  });
+  const searchedCity = request.query.search_query;
+  const key = process.env.WEATHER_API_KEY;
+  const url = `https://api.weatherbit.io/v2.0/forecast/daily?days=8&city=${searchedCity}&country=US&key=${key}`;
+  console.log('CITY', searchedCity);
+  superagent.get(url)
+    .then(result => {
+      const weatherData = result.body;
+      console.log('WEATHER', weatherData);
+      const weatherArray = weatherData.data.map(object => {
+        const newWeather = new Weather(
+          object.weather.description,
+          object.valid_date
+        );
+        return newWeather;
+      });
+    
+      response.send(weatherArray)
+    })
+    .catch(error => {
+      response.status(500).send('weather retrieval failed')
+      console.log(error.message);
+    });
 
-  response.send(weatherArray)
 });
 
 
