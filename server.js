@@ -55,17 +55,15 @@ app.get('/location', (request, response) => {
 
 app.get('/weather', (request, response) => {
 const weatherData = require('./data/weather.json');
-const arr = [];
-
-weatherData.data.forEach(object => {
+const weatherArray = weatherData.data.map(object => {
   const newWeather = new Weather(
   object.weather.description,
-  object.datetime
+  object.valid_date
   );
-  arr.push(newWeather)
+  return newWeather;
 });
 
-response.send(arr)
+response.send(weatherArray)
 });
 
 
