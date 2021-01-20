@@ -1,12 +1,10 @@
 'use strict';
 
 // ====== packages ======
-
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
 require('dotenv').config();
-
 
 // ====== setup the application ======
 const app = express();
@@ -16,7 +14,6 @@ app.use(cors());
 const PORT = process.env.PORT || 3111;
 
 // ====== Routes ======
-
 app.get('/', (request, response) => {
   response.send('you made it home, party time');
 });
@@ -34,9 +31,7 @@ app.get('/location', (request, response) => {
 
   superagent.get(url)
     .then(result => {
-      // console.log('BODY', result.body);
       const theDataObjFromJson = result.body[0];
-
       const newLocation = new Location(
         searchedCity,
         theDataObjFromJson.display_name,
@@ -58,11 +53,10 @@ app.get('/weather', (request, response) => {
   const searchedCity = request.query.search_query;
   const key = process.env.WEATHER_API_KEY;
   const url = `https://api.weatherbit.io/v2.0/forecast/daily?days=8&city=${searchedCity}&country=US&key=${key}`;
-  // console.log('CITY', searchedCity);
+
   superagent.get(url)
     .then(result => {
       const weatherData = result.body;
-      // console.log('WEATHER', weatherData);
       const weatherArray = weatherData.data.map(object => {
         const newWeather = new Weather(
           object.weather.description,
@@ -90,8 +84,6 @@ app.get('/parks', (request, response) => {
   superagent.get(url)
     .then(result => {
       const parkData = result.body;
-      console.log('DATA', parkData.data);
-      // console.log('BODY', parkData);
       const parkArray = parkData.data.map(object => {
         const newPark = new Park(
           object.fullName,
@@ -109,8 +101,8 @@ app.get('/parks', (request, response) => {
       response.status(500).send('parks not found')
       console.log(error.message);
     });
-})
 
+});
 
 
 // ====== Helper Funtions ======
