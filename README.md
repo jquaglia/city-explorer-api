@@ -10,7 +10,51 @@ This is my first time creating and using a server. The app we are creating takes
 
 ## Getting Started
 
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+1. In Terminal execute:
+
+   - `touch server.js`
+
+   - `npm init`
+
+   - `npm install -S express cors dotenv superagent`
+
+   - `touch .env`
+
+1. Open server up in code editor. Put all necessary API keys in .env file as well as PORT info.
+
+1. Head into the `server.js` file.
+
+1. Load Packages
+
+   - declare variables for all packages needed
+
+1. Configure App
+
+   - `const app = express();`
+
+   - `app.use(cors());`
+
+1. Global Variables
+
+   - `const PORT = process.env.PORT || 3111;`
+
+1. Routes
+
+   - `'/location' => {}`
+
+   - `'/weather' => [{}, {}]`
+
+   - `'/parks' => [{}, {}]`
+
+1. Route Callbacks
+
+1. Helper Functions
+
+1. Start the App
+
+   - `app.listen(PORT, () => { console.log(`server is listening on Port ${PORT}`) });`
+
+1. You should be able to start the server with `nodemon` command (as long as you have nodemon installed [in terminal `npm i -g nodemon`])
 
 ## Architecture
 
