@@ -1,11 +1,12 @@
 # city-explorer-api
 
 **Author**: Jason
-**Version**: 1.2.1 (increment the patch/fix version number if you make more commits past your first submission)
+
+**Version**: 1.2.1 <!--(increment the patch/fix version number if you make more commits past your first submission)-->
 
 ## Overview
 
-This is my first time creating and using a server. The app we are creating takes in a location and presents a map and weather data about the location. The app also presents national park information for nearby parks.
+This is my first time creating and using a server. The app I am creating takes in a location and presents a map and weather data about the location. The app also presents national park information for nearby parks.
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
 
 ## Getting Started
@@ -63,7 +64,7 @@ This app uses: html, css, javascript, mustache, jquery, express, cors, dotenv, a
 
 ## Time Estimate
 
-```
+```html
 Number and name of feature: Data Formatting
 
 Estimate of time needed to complete: 30 minutes
@@ -75,7 +76,7 @@ Finish time: 4:45pm
 Actual time needed to complete: 30 minutes
 ```
 
-```
+```html
 Number and name of feature: Locations
 
 Estimate of time needed to complete: 1 hour
@@ -87,7 +88,7 @@ Finish time: 5:45pm
 Actual time needed to complete: 1 hour
 ```
 
-```
+```html
 Number and name of feature: Weather
 
 Estimate of time needed to complete: 1 hour
@@ -99,7 +100,7 @@ Finish time: 7:00pm
 Actual time needed to complete: 1 hour
 ```
 
-```
+```html
 Number and name of feature: Parks
 
 Estimate of time needed to complete: 1 hour
@@ -147,4 +148,4 @@ Michael Eclevea
 
 Jason Dormier
 
-Sang 
+Sang Lee
