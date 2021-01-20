@@ -22,17 +22,12 @@ app.get('/', (request, response) => {
 });
 
 
-
 app.get('/location', (request, response) => {
   if (request.query.city === '') {
     response.status(500).send('Error pick a city to explore')
     return;
   }
 
-  // ====== Normalize Data ======
-  // const theDataArrayFromTheLocationJson = require('./data/location.json');
-
-  // ====== Data from the client ======
   const searchedCity = request.query.city;
   const key = process.env.GEOCODE_API_KEY;
   const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${searchedCity}&format=json`;
@@ -59,16 +54,15 @@ app.get('/location', (request, response) => {
 });
 
 
-
 app.get('/weather', (request, response) => {
   const searchedCity = request.query.search_query;
   const key = process.env.WEATHER_API_KEY;
   const url = `https://api.weatherbit.io/v2.0/forecast/daily?days=8&city=${searchedCity}&country=US&key=${key}`;
-  console.log('CITY', searchedCity);
+  // console.log('CITY', searchedCity);
   superagent.get(url)
     .then(result => {
       const weatherData = result.body;
-      console.log('WEATHER', weatherData);
+      // console.log('WEATHER', weatherData);
       const weatherArray = weatherData.data.map(object => {
         const newWeather = new Weather(
           object.weather.description,
@@ -76,7 +70,7 @@ app.get('/weather', (request, response) => {
         );
         return newWeather;
       });
-    
+
       response.send(weatherArray)
     })
     .catch(error => {
@@ -85,6 +79,37 @@ app.get('/weather', (request, response) => {
     });
 
 });
+
+
+app.get('/parks', (request, response) => {
+  const searchedCity = request.query.search_query;
+  console.log('QUERY', searchedCity)
+  const key = process.env.PARKS_API_KEY
+  const url = `https://developer.nps.gov/api/v1/parks?limit=10&q=${searchedCity}&api_key=${key}`
+
+  superagent.get(url)
+    .then(result => {
+      const parkData = result.body;
+      console.log('DATA', parkData.data);
+      // console.log('BODY', parkData);
+      const parkArray = parkData.data.map(object => {
+        const newPark = new Park(
+          object.fullName,
+          object.addresses[0].line1,
+          object.entranceFees.cost,
+          object.description,
+          object.url
+        );
+        return newPark;
+      });
+
+      response.send(parkArray)
+    })
+    .catch(error => {
+      response.status(500).send('parks not found')
+      console.log(error.message);
+    });
+})
 
 
 
@@ -101,6 +126,13 @@ function Weather(forecast, time) {
   this.time = time;
 }
 
+function Park(name, address, fee, description, url) {
+  this.name = name;
+  this.address = address;
+  this.fee = fee;
+  this.description = description;
+  this.url = url;
+}
 
 // ====== Start the server ======
 app.listen(PORT, () => { console.log(`server is listening on Port ${PORT}`) });
