@@ -87,7 +87,7 @@ app.get('/parks', (request, response) => {
       const parkArray = parkData.data.map(object => {
         const newPark = new Park(
           object.fullName,
-          object.addresses[0].line1,
+          `${object.addresses[0].line1} ${object.addresses[0].city}, ${object.addresses[0].stateCode} ${object.addresses[0].postalCode}`,
           object.entranceFees.cost,
           object.description,
           object.url
