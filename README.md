@@ -2,12 +2,11 @@
 
 **Author**: Jason
 
-**Version**: 1.2.1 <!--(increment the patch/fix version number if you make more commits past your first submission)-->
+**Version**: 1.2.1
 
 ## Overview
 
-This is my first time creating and using a server. The app I am creating takes in a location and presents a map and weather data about the location. The app also presents national park information for nearby parks.
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+This is my first time creating and using a server. The app I am creating takes in a location and presents a map and weather data about the location. The app also presents national park information for nearby parks. When you view data for a location, the app now saves the location info to a database.(using sql) The next time you search for that location, the app pulls the info out of the database.
 
 ## Getting Started
 
@@ -59,57 +58,44 @@ This is my first time creating and using a server. The app I am creating takes i
 
 ## Architecture
 
-This app uses: html, css, javascript, mustache, jquery, express, cors, dotenv, and superagent.
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+This app uses: html, css, javascript, mustache, jquery, express, cors, dotenv, superagent, and SQL.
 
 ## Time Estimate
 
 ```html
-Number and name of feature: Data Formatting
+Number and name of feature: Database
 
 Estimate of time needed to complete: 30 minutes
 
-Start time: 4:15pm
-
-Finish time: 4:45pm
-
-Actual time needed to complete: 30 minutes
-```
-
-```html
-Number and name of feature: Locations
-
-Estimate of time needed to complete: 1 hour
-
 Start time: 4:45pm
 
-Finish time: 5:45pm
+Finish time: 5:30pm
 
-Actual time needed to complete: 1 hour
+Actual time needed to complete: 45 minutes
 ```
 
 ```html
-Number and name of feature: Weather
+Number and name of feature: Server
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 6:00pm
+Start time: 5:30pm
 
-Finish time: 7:00pm
+Finish time: 6:45pm
 
-Actual time needed to complete: 1 hour
+Actual time needed to complete: 1 hour 15 minutes
 ```
 
 ```html
-Number and name of feature: Parks
+Number and name of feature: Deploy
 
-Estimate of time needed to complete: 1 hour
+Estimate of time needed to complete: 30 minutes
 
 Start time: 7:00pm
 
-Finish time: 8:45pm
+Finish time: 7:30pm
 
-Actual time needed to complete: 1 hour 45 minutes
+Actual time needed to complete: 30 minutes
 ```
 
 ## Change Log
@@ -137,6 +123,20 @@ Actual time needed to complete: 1 hour 45 minutes
 - 01-19-21 8:41pm v11 Added Parks API to draw data from
 
 - 01-19-21 9:09pm v12 Updated README
+
+- 01-20-21 10:06am v14 Added how to get started to the README
+
+- 01-20-21 5:06pm v16 Refactored code to be more DRY
+
+- 01-20-21 5:37am v17 Added api key
+
+- 01-20-21 5:37am v18 Added api key
+
+- 01-20-21 5:37am v19 Added api key
+
+- 01-20-21 7:48pm v20 Added in sql functionality
+
+- 01-20-21 8:25pm v24 Full deployment with db functionality
 
 ## Credits and Collaborations
 
