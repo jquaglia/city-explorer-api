@@ -2,11 +2,11 @@
 
 **Author**: Jason
 
-**Version**: 1.2.1
+**Version**: 1.2.9
 
 ## Overview
 
-This is my first time creating and using a server. The app I am creating takes in a location and presents a map and weather data about the location. The app also presents national park information for nearby parks. When you view data for a location, the app now saves the location info to a database.(using sql) The next time you search for that location, the app pulls the info out of the database.
+This is my first time creating and using a server. The app I am creating takes in a location and presents a map and weather data about the location. The app also presents national park information for nearby parks. When you view data for a location, the app now saves the location info to a database.(using sql) The next time you search for that location, the app pulls the info out of the database. I've also added in api calls for movies and yelp reviews that use pagination to load in properly.
 
 ## Getting Started
 
@@ -63,19 +63,19 @@ This app uses: html, css, javascript, mustache, jquery, express, cors, dotenv, s
 ## Time Estimate
 
 ```html
-Number and name of feature: Database
+Number and name of feature: Movies
 
 Estimate of time needed to complete: 30 minutes
 
-Start time: 4:45pm
+Start time: 4:30pm
 
-Finish time: 5:30pm
+Finish time: 5:15pm
 
 Actual time needed to complete: 45 minutes
 ```
 
 ```html
-Number and name of feature: Server
+Number and name of feature: Yelp
 
 Estimate of time needed to complete: 1 hour
 
@@ -87,7 +87,7 @@ Actual time needed to complete: 1 hour 15 minutes
 ```
 
 ```html
-Number and name of feature: Deploy
+Number and name of feature: Pagination
 
 Estimate of time needed to complete: 30 minutes
 
@@ -149,3 +149,5 @@ Michael Eclevea
 Jason Dormier
 
 Sang Lee
+
+Chance Harmon
