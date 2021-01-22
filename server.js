@@ -114,15 +114,15 @@ function getMovies(request, response) {
 function getYelp(request, response) {
   const searchedCity = request.query.search_query;
   const key = process.env.YELP_API_KEY;
-  const url = `https://api.yelp.com/v3/businesses/search?location=${searchedCity}&limit=20`;
-  
+  const page = request.query.page;
+  const offset = (page - 1) * 5;
+  const url = `https://api.yelp.com/v3/businesses/search?location=${searchedCity}&limit=5&offset=${offset}`;
+
   superagent.get(url)
   .set('Authorization', `Bearer ${key}`)
   .then(result => {
-      console.log('BODY', result.body.businesses);
       const yelpArray = result.body.businesses.map(yelpObject => new Yelp(yelpObject));
       response.send(yelpArray)
-      console.log('BODY', result.body.businesses)
     })
     .catch(error => {
       response.status(500).send('restaurants not found')
