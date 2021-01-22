@@ -22,6 +22,7 @@ app.get('/location', getLocation);
 app.get('/weather', getWeather);
 app.get('/parks', getParks);
 app.get('/movies', getMovies);
+app.get('/yelp', getYelp);
 
 // ========= Route Callbacks =========
 function homeBase(request, response) {
@@ -80,8 +81,8 @@ function getWeather(request, response) {
 
 function getParks(request, response) {
   const searchedCity = request.query.formatted_query;
-  const key = process.env.PARKS_API_KEY
-  const url = `https://developer.nps.gov/api/v1/parks?limit=10&q=${searchedCity}&api_key=${key}`
+  const key = process.env.PARKS_API_KEY;
+  const url = `https://developer.nps.gov/api/v1/parks?limit=10&q=${searchedCity}&api_key=${key}`;
 
   superagent.get(url)
     .then(result => {
@@ -97,7 +98,7 @@ function getParks(request, response) {
 function getMovies(request, response) {
   const searchedCity = request.query.search_query;
   const key = process.env.MOVIE_API_KEY
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${searchedCity}`
+  const url = `https://api.themoviedb.org/3/search/movie?total_results=20&api_key=${key}&language=en-US&query=${searchedCity}`;
 
   superagent.get(url)
     .then(result => {
@@ -107,6 +108,25 @@ function getMovies(request, response) {
     .catch(error => {
       response.status(500).send('movies not found')
       console.log(error.message);
+    });
+};
+
+function getYelp(request, response) {
+  const searchedCity = request.query.search_query;
+  const key = process.env.YELP_API_KEY;
+  const url = `https://api.yelp.com/v3/businesses/search?location=${searchedCity}&limit=20`;
+  
+  superagent.get(url)
+  .set('Authorization', `Bearer ${key}`)
+  .then(result => {
+      console.log('BODY', result.body.businesses);
+      const yelpArray = result.body.businesses.map(yelpObject => new Yelp(yelpObject));
+      response.send(yelpArray)
+      console.log('BODY', result.body.businesses)
+    })
+    .catch(error => {
+      response.status(500).send('restaurants not found')
+      console.log(error);
     });
 };
 
@@ -139,6 +159,14 @@ function Movie(object) {
   this.image_url = `https://image.tmdb.org/t/p/w500/${object.poster_path}`;
   this.popularity = object.popularity;
   this.released_on = object.release_date;
+}
+
+function Yelp(object){
+  this.name = object.name;
+  this.image_url = object.image_url;
+  this.price = object.price;
+  this.rating = object.rating;
+  this.url = object.url;
 }
 
 // ========= Start the server =========
