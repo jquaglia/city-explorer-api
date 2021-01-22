@@ -21,6 +21,7 @@ app.get('/', homeBase);
 app.get('/location', getLocation);
 app.get('/weather', getWeather);
 app.get('/parks', getParks);
+app.get('/movies', getMovies);
 
 // ========= Route Callbacks =========
 function homeBase(request, response) {
@@ -78,7 +79,7 @@ function getWeather(request, response) {
 };
 
 function getParks(request, response) {
-  const searchedCity = request.query.search_query;
+  const searchedCity = request.query.formatted_query;
   const key = process.env.PARKS_API_KEY
   const url = `https://developer.nps.gov/api/v1/parks?limit=10&q=${searchedCity}&api_key=${key}`
 
@@ -89,6 +90,22 @@ function getParks(request, response) {
     })
     .catch(error => {
       response.status(500).send('parks not found')
+      console.log(error.message);
+    });
+};
+
+function getMovies(request, response) {
+  const searchedCity = request.query.search_query;
+  const key = process.env.MOVIE_API_KEY
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${searchedCity}`
+
+  superagent.get(url)
+    .then(result => {
+      const moveieArray = result.body.results.map(movieObject => new Movie(movieObject));
+      response.send(moveieArray)
+    })
+    .catch(error => {
+      response.status(500).send('movies not found')
       console.log(error.message);
     });
 };
@@ -109,11 +126,24 @@ function Weather(object) {
 function Park(object) {
   this.name = object.fullName;
   this.address = `${object.addresses[0].line1} ${object.addresses[0].city}, ${object.addresses[0].stateCode} ${object.addresses[0].postalCode}`;
-  this.fee = object.entranceFees.cost;
+  this.fee = object.entranceFees[0].cost;
   this.description = object.description;
   this.url = object.url;
 }
 
+function Movie(object) {
+  this.title = object.original_title;
+  this.overview = object.overview;
+  this.average_votes = object.vote_average;
+  this.total_votes = object.vote_count;
+  this.image_url = `https://image.tmdb.org/t/p/w500/${object.poster_path}`;
+  this.popularity = object.popularity;
+  this.released_on = object.release_date;
+}
+
 // ========= Start the server =========
-client.connect();
-app.listen(PORT, () => { console.log(`server is listening on Port ${PORT}`) });
+client.connect()
+  .then(() => {
+    app.listen(PORT, () => { console.log(`server is listening on Port ${PORT}`) });
+  })
+  .catch(error => console.error(error.message));
